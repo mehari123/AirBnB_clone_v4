@@ -1,129 +1,120 @@
-@charset "UTF-8";
-/** Holberton Practice Styles
- * ------ Filters
- */
-
-.container .filters {
-	height: 70px;
-	background-color: #FFFFFF;
-	width: 100%;
-	border: 1px solid #DDDDDD;
-	border-radius: 4px;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: stretch;
-	z-index: 2;
-	position: relative;
+.filters {
+    display: flex;
+    position: relative;
+    height: 70px;
+    width: calc(100% - 2 * 1px - 2 * 10px);
+    margin: 0 10px;
+    align-items: center;
+    background: white;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
 }
 
-.container .filters .locations {
-	width: 25%;
-	border-right: 1px solid #DDDDDD;
+.filters > button {
+    position: absolute;
+    width: 20%;
+    height: 48px;
+    right: 30px;
+    /* top: 15%; */
+    font-size: 18px;
+    color: #FFFFFF;
+    background: #FF5A5F;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.container .filters .amenities {
-	width: 25%;
+.filters > button:hover {
+    opacity: 0.9;
 }
 
-.container .filters button {
-	font-size: 18px;
-	background-color: #FF5A5F;
-	height: 48px;
-	width: 20%;
-	border: none;
-	border-radius: 4px;
-	margin: auto 30px auto auto;
-	color: white;
+.filters > .locations,
+.filters > .amenities {
+    display: grid;
+    position: relative;
+    width: 25%;
+    height: calc(100% - 14px);
+    grid-template-rows: calc(50% - 10px) calc(50% - 10px);
+    padding: 10px 5px 5px 30px;
+    align-items: center;
 }
 
-.container .filters button:hover {
-	opacity: 0.9;
+.filters > *:first-child {
+    border-right: 1px solid #DDDDDD;
 }
 
-/**
- * ------ HEADERS
- */
-
-.container .filters h2 {
-	font-size: 16px;
-	margin: 10px 0 5px 0;
+.filters h2 {
+    margin-left: 15%;
+    /* margin-left: clamp(5px, 15%, 30px); */
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
 }
 
-.container .filters h3 {
-	font-weight: 600;
-	margin: 12px 0 4px 40px;
+.filters > .locations > h3,
+.filters > .amenities > h3 {
+    font-weight: 600;
+    margin: 0;
 }
 
-.container .filters h4 {
-	font-weight: 400;
-	font-size: 14px;
-	margin: 7px 0 3px 40px;
-    text-overflow: ellipsis;
+.filters > .locations > h4,
+.filters > .amenities > h4 {
+    font-weight: 400;
+    font-size: var(--font-small);
+    margin: 10px 0 0 0;
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-/**
- * ------ POPOVER
- */
-
-.container .filters .locations:hover .popover {
-	display: list-item;
+.filters > .locations > .popover,
+.filters > .amenities > .popover {
+    display: none;
+    position: absolute;
+    top: 70px;
+    width: calc(100% - 10px);
+    height: 300px;
+    max-height: 300px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    background: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    overflow-y: scroll;
+    scrollbar-width: 5px;
+    z-index: 5;
 }
 
-.container .filters .amenities:hover .popover {
-	display: list-item;
+.filters > .locations > .popover > ul,
+.filters > .amenities > .popover > ul{
+    list-style: none;
+    padding: 0 20px;
 }
 
-.container .filters .popover {
-	max-height: 300px;
-	overflow: scroll;
-	display: none;
-	list-style-type: none;
-	background-color: #FAFAFA;
-	border: 1px solid #DDDDDD;
-	border-radius: 4px;
-	padding: 30px 40px 40px 30px;
-	margin: 15px -1px 0 -1px;
+.filters > .locations .popover > ul > li,
+.filters > .amenities .popover > ul > li {
+    margin: 5px 0;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.container .filters .popover ul {
-	list-style-type: none;
-	padding-left: 20px;
+.filters > .locations .popover > ul > li > h2 {
+    margin: 5px;
 }
 
-.container .filters .popover li {
-	margin: 5px 0 5px 0;
+.filters > .locations .popover > ul > li:not(:first-child) {
+    margin-top: 20px;
 }
 
-.popover li input {
-    margin-right: 10px;
+.filters > .locations .popover > ul > li > ul {
+    list-style-type: none;
+    padding-left: 20px;
 }
 
-@media screen and (max-width: 600px) {
-
-	.container .filters {
-		flex-direction: column;
-		height: auto;
-		width: 90%;
-		margin: auto;
-	}
-
-	.container .filters .locations {
-		border-bottom: 1px solid #DDDDDD;
-	}
-
-	.container .filters .locations,
-	.container .filters .amenities {
-		width: 100%;
-		border-right: none;
-		border-bottom: 1px solid #DDDDDD;
-	}
-
-	.container .filters button {
-		width: 80%;
-		margin: 5px auto;
-	}
-
+.filters > .locations:hover .popover,
+.filters > .amenities:hover .popover,
+.popover:hover {
+    display: block;
 }

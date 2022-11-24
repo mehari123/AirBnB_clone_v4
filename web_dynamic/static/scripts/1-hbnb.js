@@ -1,16 +1,35 @@
-window.addEventListener('load', function () {
-  // task 2
-  const amenityIds = {};
-  $('input[type=checkbox]').change(function () {
-    if ($(this).prop('checked')) {
-      amenityIds[$(this).attr('data-id')] = $(this).attr('data-name');
-    } else if (!$(this).prop('checked')) {
-      delete amenityIds[$(this).attr('data-id')];
-    }
-    if (Object.keys(amenityIds).length === 0) {
-      $('div.amenities h4').html('&nbsp');
+'use strict';
+$(() => {
+  let amenitiesSelected = [];
+  const selectors = {
+    amenitiesHeader: '.amenities > h4',
+    amenityBox: '.amenities > .popover > ul > li > input[type="checkbox"]',
+    amenityItem: '.amenities > .popover > ul > li'
+  };
+
+  $(selectors.amenityItem).on('mousedown', ev => {
+    ev.target.getElementsByTagName('input')?.item(0)?.click();
+  });
+
+  $(selectors.amenityBox).change(ev => {
+    const amenityId = ev.target.getAttribute('data-id');
+    const amenityName = ev.target.getAttribute('data-name');
+
+    if (ev.target.checked) {
+      if (!amenitiesSelected.find(obj => obj.id === amenityId)) {
+        amenitiesSelected.push({
+          id: amenityId,
+          name: amenityName
+        });
+      }
     } else {
-      $('div.amenities h4').text(Object.values(amenityIds).join(', '));
+      amenitiesSelected = amenitiesSelected.filter(
+        obj => (obj.id !== amenityId) && (obj.name !== amenityName)
+      );
     }
+    const htmlContent = amenitiesSelected.map(obj => obj.name).join(', ');
+    $(selectors.amenitiesHeader).html(
+      amenitiesSelected.length > 0 ? htmlContent : '&nbsp;'
+    );
   });
 });
